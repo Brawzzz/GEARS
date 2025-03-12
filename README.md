@@ -1,6 +1,6 @@
 # GEARS
 
-Academic project : gear dimensioning application
+Academic project : sizing gear application
 
 //----- MERGE dev and main branch -----// 
 
