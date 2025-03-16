@@ -1,24 +1,31 @@
 #pragma once
 
+/***********************
+
+(int)	rotation : 1 if input shaft and output shaft rotate in the same direction, -1 otherwise
+(int)	nb_shaft : number of shaft in a transmission
+
+(float)	input_speed : angular speed of the input shaft
+(float)	output_speed : angular speed of the output shaft
+
+shaft_list : list of all the shafts in a transmission
+
+***********************/
+
 #include "Shaft.h"
 #include "ChainList.h"
 
 class Transmission {
+
 private:
 
-	/*
-		rotation :
-
-
-	*/
-
 	int rotation;
-	int tree_number;
+	int nb_shaft;
 
-	float entry_speed;
-	float exit_speed;
+	float input_speed;
+	float output_speed;
 
-	// ramener la template de classe shaft
+	ChainList<Shaft> shaft_list;
 
 public:
 
@@ -28,24 +35,31 @@ public:
 	//----- DESTRUCTOR -----//
 	~Transmission();
 
-	//----- GETER -----//
+	//------- GETER -------//
 
 	// Changer le shaft* en template ChainList
-	Shaft* getArbres();
+	
 	int get_rotation();
-	int get_tree_number();
-	float get_entry_speed();
-	float get_exit_speed();
+	int get_nb_shaft();
+	
+	float get_input_speed();
+	float get_output_speed();
 
-	//----- SETER -----//
+	ChainList<Shaft> get_shaft_list();
+
+	//------- SETER -------//
 	void set_rotation(int n_rotation);
-	void set_tree_number(int n_tree_number);
-	void set_entry_speed(float n_entry_speed);
-	void set_exit_speed(float n_exit_speed);
+	void set_nb_shaft(int n_tree_number);
+	void set_input_speed(float n_input_speed);
+	void set_output_speed(float n_output_speed);
 
-	//----- METHODS -----//
+	//----- METHODS ------//
 	void print_transmission();
-	void retraitArbre(int n_rg_arbre);
-	void ajoutArbre(Shaft* n_arbre);
+	void add_shaft(Shaft* n_arbre);
+	void pop_shaft(int index);
+
+	static Transmission create_gear_train(int nb_shaft, float input_speed, float output_speed, int rotation);
+	static Transmission create_gear_train(float input_speed, float output_speed, int rotation);
+
 };
 

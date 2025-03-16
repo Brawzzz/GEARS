@@ -1,5 +1,16 @@
 #pragma once
 
+/***********************
+
+(int)		rotation : Direction of shaft rotation
+
+(float)		angular_speed : shaft's angular speed
+
+(Wheel*)	driven_wheel : shaft's driven wheel	
+(Wheel*)	driving_wheel : shaft's driving wheel	
+
+***********************/
+
 #include "Wheel.h"
 
 class Shaft {
@@ -17,7 +28,6 @@ public:
 
 	//----- CONSTRUCTOR -----//
 	Shaft();
-
 	Shaft(Wheel* n_driven_wheel, Wheel* n_driving_wheel);
 
 	//----- DESTRUCTOR -----//

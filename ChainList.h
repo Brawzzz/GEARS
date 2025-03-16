@@ -117,7 +117,7 @@ public :
 
 	Param pop_chain(int index) {
 
-		Param p = (Param)NULL;
+		Param p = (*new Param());
 
 		if (head == nullptr || index > get_len()) {
 			return(p);

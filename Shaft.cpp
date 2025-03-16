@@ -13,6 +13,9 @@ Shaft::Shaft(Wheel* n_driven_wheel, Wheel* n_driving_wheel) {
 
 	driven_wheel = n_driven_wheel;
 	driving_wheel = n_driving_wheel;
+
+	rotation = 0;
+	angular_speed = 0.f;
 }
 
 //----- DESTRUCTOR -----//
@@ -59,10 +62,20 @@ void Shaft::set_driving_wheel(Wheel* n_driving_wheel) {
 //----- METHODS -----//
 void Shaft::print_shaft() {
 
+	std::cout << "********************" << std::endl;
+
 	std::cout << "rotation = " << rotation << std::endl;
-	std::cout << "angular_speed = " << angular_speed << "_mm" << std::endl;
+	std::cout << "angular_speed = " << angular_speed << "_tr/min" << std::endl;
+	std::cout << std::endl;
+
+	std::cout << "********************" << std::endl;
 	std::cout << "driven_wheel = " << std::endl;
 	(*driven_wheel).print_wheel();
+	std::cout << "********************" << std::endl;
+
 	std::cout << "driving_wheel = " << std::endl;
 	(*driving_wheel).print_wheel();
+	std::cout << "********************" << std::endl;
+
+	std::cout << std::endl;
 }

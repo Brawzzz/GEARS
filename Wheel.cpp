@@ -20,6 +20,7 @@ Wheel::Wheel(float n_m, int n_d) {
 
 	d = n_d;
 	m = n_m;
+	z = -1;
 
 	if (m != 0) {
 		z = d / m;
@@ -38,39 +39,32 @@ Wheel::~Wheel() {}
 
 //----- GETER -----//
 int Wheel::get_z() {
-
 	return(z);
 }
 
 int Wheel::get_d() {
-
 	return(d);
 }
 
 float Wheel::get_m() {
-
 	return(m);
 }
 
 //----- SETER -----//
 void Wheel::set_z(int n_z) {
-
 	z = n_z;
 	return;
 }
 
 void Wheel::set_d(int n_d) {
-
 	d = n_d;
 	return;
 }
 
 void Wheel::set_m(float n_m) {
-
 	m = n_m;
 	return;
 }
-
 
 //----- METHODS -----//
 void Wheel::print_wheel() {

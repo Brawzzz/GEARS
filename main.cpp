@@ -1,26 +1,20 @@
-#include "Wheel.h"
-#include "ChainList.h"
+#include "Transmission.h"
 
 int main(int argc, char* argv) {
 
-	// Wheel w1 = Wheel();
+	int n_z = 10;
+	float n_m = 12.5f;
 
-	ChainList<int> list;
+	Wheel w1 = Wheel(n_z, n_m);
+	Wheel w2 = Wheel(n_z, n_m);
 
-	int a = 10;
-	int b = 20;
-	int c = 30;
-	int d = 40;
+	Shaft s1 = Shaft();
 
-	int index = 1;
+	s1.set_driven_wheel(&w1);
+	s1.set_driving_wheel(&w2);
 
-	list.add_chain(a, 0);
-	list.add_chain(b, 1);
-	list.add_chain(c, 2);
-	list.print_chain_list();
+	s1.print_shaft();
 
-	int r = list.pop_chain(index);
-	list.print_chain_list();
 
 	return(0);
 }

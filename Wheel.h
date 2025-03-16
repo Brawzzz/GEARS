@@ -1,27 +1,29 @@
 #pragma once
 
+/***********************
+
+(int)	z : Wheel's number of theeth
+(int)	d : Wheel's diameter (mm)
+
+(float)	m : Wheel's module (mm)
+
+***********************/
+
 #include <iostream>
 
 class Wheel{
 
 private:
 
-	/*
-		z : Wheel's number of theeth
-		d : Wheel's diameter (mm)
-		m : Wheel's module (mm)
-	*/
-
 	int z;
+	int d;
 
-	float d;
 	float m;
 
 public:
 
 	//----- CONSTRUCTOR -----//
 	Wheel();
-
 	Wheel(int n_z, float n_m);
 	Wheel(float n_m, int n_d);
 
@@ -31,6 +33,7 @@ public:
 	//----- GETER -----//
 	int	get_z();
 	int	get_d();
+
 	float get_m();
 
 	//----- SETER -----//
