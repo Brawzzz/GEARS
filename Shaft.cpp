@@ -9,7 +9,7 @@ Shaft::Shaft() {
 	driving_wheel = new Wheel();
 }
 
-Shaft::Shaft(Wheel* n_driven_wheel, Wheel* n_driving_wheel) {
+Shaft::Shaft(PWheel n_driven_wheel, PWheel n_driving_wheel) {
 
 	driven_wheel = n_driven_wheel;
 	driving_wheel = n_driving_wheel;
@@ -34,11 +34,11 @@ float Shaft::get_angular_speed() {
 	return angular_speed;
 }
 
-Wheel* Shaft::get_driven_wheel() {
+PWheel Shaft::get_driven_wheel() {
 	return driven_wheel;
 }
 
-Wheel* Shaft::get_driving_wheel() {
+PWheel Shaft::get_driving_wheel() {
 	return driving_wheel;
 }
 
@@ -51,11 +51,11 @@ void Shaft::set_angular_speed(float n_angular_speed) {
 	angular_speed = n_angular_speed;
 }
 
-void Shaft::set_driven_wheel(Wheel* n_driven_wheel) {
+void Shaft::set_driven_wheel(PWheel n_driven_wheel) {
 	driven_wheel = n_driven_wheel;
 }
 
-void Shaft::set_driving_wheel(Wheel* n_driving_wheel) {
+void Shaft::set_driving_wheel(PWheel n_driving_wheel) {
 	driving_wheel = n_driving_wheel;
 }
 

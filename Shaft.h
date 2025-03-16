@@ -13,6 +13,8 @@
 
 #include "Wheel.h"
 
+using PWheel = Wheel*;
+
 class Shaft {
 
 private:
@@ -21,14 +23,14 @@ private:
 
 	float angular_speed;
 
-	Wheel* driven_wheel;
-	Wheel* driving_wheel;
+	PWheel driven_wheel;
+	PWheel driving_wheel;
 
 public:
 
 	//----- CONSTRUCTOR -----//
 	Shaft();
-	Shaft(Wheel* n_driven_wheel, Wheel* n_driving_wheel);
+	Shaft(PWheel n_driven_wheel, PWheel n_driving_wheel);
 
 	//----- DESTRUCTOR -----//
 	~Shaft();
@@ -38,14 +40,14 @@ public:
 
 	float get_angular_speed();
 
-	Wheel* get_driven_wheel();
-	Wheel* get_driving_wheel();
+	PWheel get_driven_wheel();
+	PWheel get_driving_wheel();
 
 	//----- SETER -----//
 	void set_rotation(int n_rotation);
 	void set_angular_speed(float n_angular_speed);
-	void set_driven_wheel(Wheel* n_driven_wheel);
-	void set_driving_wheel(Wheel* n_driving_wheel);
+	void set_driven_wheel(PWheel n_driven_wheel);
+	void set_driving_wheel(PWheel n_driving_wheel);
 
 	//----- METHODS -----//
 	void print_shaft();

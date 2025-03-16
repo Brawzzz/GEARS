@@ -1,4 +1,5 @@
 #pragma once
+#include "Node.h"
 
 template <class Param> 
 
@@ -6,12 +7,7 @@ class ChainList {
 
 private :
 
-	struct Node {
-
-		Param elmt;
-		Node* next;
-	};
-	using PNode = Node*;
+	using PNode = Node<Param>*;
 
 	PNode head;
 
@@ -28,7 +24,7 @@ public :
 		while (current) {
 			PNode node_i = current;
 
-			current = current->next;
+			current = current->get_next();
 			delete(node_i);
 		}
 	}
@@ -42,10 +38,10 @@ public :
 		PNode current = head;
 
 		for (int i = 0; i < index; i++) {
-			current = current->next;
+			current = current->get_next();
 		}
 
-		return current->elmt;
+		return current->get_elmt();
 	}
 
 	int get_len() {
@@ -60,7 +56,7 @@ public :
 			PNode current = head;
 
 			while (current != nullptr) {
-				current = current->next;
+				current = current->get_next();
 				size++;
 			}
 			
@@ -73,16 +69,15 @@ public :
 		PNode current = head;
 
 		while (current != nullptr) {
-			std::cout << current->elmt << " -> ";
-			current = current->next;
+			current->print_node();
+			current = current->get_next();
 		}
 		std::cout << "NULL" << std::endl;
 	}
 
 	void add_chain(Param p, int index) {
 
-		PNode new_node = new Node();
-		new_node->elmt = p;
+		PNode new_node = new Node<Param>(p);
 
 		int len = get_len();
 
@@ -95,12 +90,12 @@ public :
 		}
 		else if (head == nullptr) {
 
-			new_node->next = nullptr;
+			new_node->set_next((PNode)nullptr);
 			head = new_node;
 		}
 		else if (index == 0) {
 
-			new_node->next = head;
+			new_node->set_next(head);
 			head = new_node;
 		}
 		else {
@@ -108,10 +103,10 @@ public :
 			PNode current = head;
 
 			for (int i = 0 ; i < index-1; i++){
-				current = current->next;
+				current = current->get_next();
 			}
-			new_node->next = current->next;
-			current->next = new_node;
+			new_node->set_next(current->get_next());
+			current->set_next(new_node);
 		}
 	}
 
@@ -128,8 +123,8 @@ public :
 		 
 		if (index == 0) {
 
-			head = current->next;
-			p = current->elmt;
+			head = current->get_next();
+			p = current->get_elmt();
 			delete(current);
 
 			return(p);
@@ -137,12 +132,12 @@ public :
 		else {
 
 			for (int i = 0 ; i < index-1 ; i++){
-				current = current->next;
+				current = current->get_next();
 			}
-			temp_node = current->next;
-			current->next = temp_node->next;
+			temp_node = current->get_next();
+			current->set_next(temp_node->get_next());
 
-			p = temp_node->elmt;
+			p = temp_node->get_elmt();
 			delete(temp_node);
 
 			return(p);
