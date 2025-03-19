@@ -50,7 +50,9 @@ public:
 	void set_driving_wheel(PWheel n_driving_wheel);
 
 	//----- METHODS -----//
-	void print_shaft();
+
+	//----- SURCHARGE -----//
+	friend std::ostream& operator<<(std::ostream& os, const Shaft& s);
 
 };
 
