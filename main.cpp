@@ -13,7 +13,11 @@ int main(int argc, char* argv) {
 	s1.set_driven_wheel(w1);
 	s1.set_driving_wheel(w2);
 
-	s1.print_shaft();
+	std::cout << s1;
+
+	ChainList<Shaft> t;
+
+	t.add_chain(s1, 0);
 
 	return(0);
 }

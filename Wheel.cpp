@@ -67,9 +67,14 @@ void Wheel::set_m(float n_m) {
 }
 
 //----- METHODS -----//
-void Wheel::print_wheel() {
 
-	std::cout << "z = " << z << std::endl;
-	std::cout << "d = " << d << "_mm" << std::endl;
-	std::cout << "m = " << m << "_mm" << std::endl;
+
+//----- SURCHARGE -----//
+std::ostream& operator<<(std::ostream& os, const Wheel& w) {
+
+	os << "z = " << w.z << std::endl;
+	os << "d = " << w.d << "_mm" << std::endl;
+	os << "m = " << w.m << "_mm" << std::endl;
+
+	return os;
 }

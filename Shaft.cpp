@@ -60,22 +60,25 @@ void Shaft::set_driving_wheel(PWheel n_driving_wheel) {
 }
 
 //----- METHODS -----//
-void Shaft::print_shaft() {
+std::ostream& operator<<(std::ostream& os, const Shaft& s) {
 
-	std::cout << "********************" << std::endl;
 
-	std::cout << "rotation = " << rotation << std::endl;
-	std::cout << "angular_speed = " << angular_speed << "_tr/min" << std::endl;
-	std::cout << std::endl;
+	os << "********************" << std::endl;
 
-	std::cout << "********************" << std::endl;
-	std::cout << "driven_wheel = " << std::endl;
-	(*driven_wheel).print_wheel();
-	std::cout << "********************" << std::endl;
+	os << "rotation = " << s.rotation << std::endl;
+	os << "angular_speed = " << s.angular_speed << "_tr/min" << std::endl;
+	os << std::endl;
 
-	std::cout << "driving_wheel = " << std::endl;
-	(*driving_wheel).print_wheel();
-	std::cout << "********************" << std::endl;
+	os << "********************" << std::endl;
+	os << "driven_wheel = " << std::endl;
+	os << *(s.driven_wheel);
+	os << "********************" << std::endl;
 
-	std::cout << std::endl;
+	os << "driving_wheel = " << std::endl;
+	os << *(s.driving_wheel);
+	os << "********************" << std::endl;
+
+	os << std::endl;
+
+	return os;
 }

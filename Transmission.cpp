@@ -4,7 +4,7 @@
 
 #include "Transmission.h"
 
-//----- CONSTRUCTOR -----//
+//---------- CONSTRUCTOR ----------//
 Transmission::Transmission() {
 
 	rotation = 0;
@@ -14,10 +14,10 @@ Transmission::Transmission() {
 	output_speed = 0.f;
 }
 
-//----- DESTRUCTOR -----//
+//---------- DESTRUCTOR ----------//
 Transmission::~Transmission() {}
 
-//----- GETER -----//
+//---------- GETER ----------//
 int Transmission::get_rotation() {
 	return rotation;
 }
@@ -38,7 +38,7 @@ ChainList<Shaft> Transmission::get_shaft_list() {
 	return(shaft_list);
 }
 
-//----- SETER -----//
+//---------- SETER ----------//
 void Transmission::set_rotation(int n_rotation) {
 	rotation = n_rotation;
 }
@@ -55,7 +55,7 @@ void Transmission::set_output_speed(float n_output_speed) {
 	output_speed = n_output_speed;
 }
 
-//----- METHODS -----//
+//---------- METHODS ----------//
 void Transmission::print_transmission() {
 
 	std::cout << "Rotation : " << rotation << std::endl;
@@ -73,19 +73,66 @@ void Transmission::add_shaft(Shaft* n_shaft) {
 }
 
 void Transmission::pop_shaft(int index) {
-
-	shaft_list.pop_chain(index);
+	Shaft s = shaft_list.pop_chain(index);
 }
 
+/*********************
 
-static Transmission create_gear_train(int nb_shaft, float input_speed, float output_speed, int rotation) {
+create a transmission knowing the inputs :
+
+	- number of shaft
+	- inputs speed
+	- output speed
+	- the rotation direction of the train
+
+*********************/
+
+Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed, float n_output_speed, int n_rotation) {
 
 	Transmission t = Transmission();
 
-	return(t);
+	float speed_ratio = 0.f;
+
+	if (n_input_speed == 0.f){
+
+		std::cout << "========================================" << std::endl;
+		std::cout << "***** Null input speed *****" << std::endl;
+		std::cout << "***** IMPOSSIBLE COMPUTAION *****" << std::endl;
+		std::cout << "***** create_gear_train(int nb_shaft, float input_speed, float output_speed, int rotation) *****" << std::endl;
+		std::cout << "========================================" << std::endl;
+
+		return(t);
+	}
+	else{
+
+		speed_ratio = n_output_speed / n_input_speed;
+
+		if ((n_nb_shaft % 2 == 0) && (n_rotation == 1)) {
+
+			std::cout << "========================================" << std::endl;
+			std::cout << "***** rotation -1 and pair number of shaft *****" << std::endl;
+			std::cout << "***** IMPOSSIBLE COMPUTAION *****" << std::endl;
+			std::cout << "***** create_gear_train(int nb_shaft, float input_speed, float output_speed, int rotation) *****" << std::endl;
+			std::cout << "========================================" << std::endl;
+
+			return(t);
+		}
+		else {
+
+			t.set_rotation(n_rotation);
+			t.set_nb_shaft(n_nb_shaft);
+			t.set_input_speed(n_input_speed);
+			t.set_input_speed(n_output_speed);
+
+			//t.shaft_list =;
+
+			return(t);
+		}
+		
+	}
 }
 
-static Transmission create_gear_train(float input_speed, float output_speed, int rotation) {
+Transmission Transmission::create_gear_train(float input_speed, float output_speed, int rotation) {
 
 	Transmission t = Transmission();
 

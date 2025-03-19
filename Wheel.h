@@ -42,6 +42,8 @@ public:
 	void set_m(float n_m);
 
 	//----- METHODS -----//
-	void print_wheel();
+	
+	//----- SURCHARGE -----//
+	friend std::ostream& operator<<(std::ostream& os, const Wheel& w);
 
 };
