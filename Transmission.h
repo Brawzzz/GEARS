@@ -36,8 +36,6 @@ public:
 	~Transmission();
 
 	//------- GETER -------//
-
-	// Changer le shaft* en template ChainList
 	
 	int get_rotation();
 	int get_nb_shaft();
@@ -55,8 +53,9 @@ public:
 
 	//----- METHODS ------//
 	void print_transmission();
-	void add_shaft(Shaft* n_arbre);
-	void pop_shaft(int index);
+	void add_shaft(Shaft* n_shaft);
+
+	Shaft* pop_shaft(int index);
 
 	static Transmission create_gear_train(int nb_shaft, float input_speed, float output_speed, int rotation);
 	static Transmission create_gear_train(float input_speed, float output_speed, int rotation);

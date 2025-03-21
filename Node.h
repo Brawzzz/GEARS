@@ -8,20 +8,20 @@ class Node {
 private:
 
 	Param elmt;
-	Node* next;
+	Node<Param>* next;
 
 public:
 
 	Node() : elmt(Param()), next(nullptr) {}
 
-	Node(Param n_elmt) : elmt(n_elmt), next(nullptr) {}
+	Node(const Param& n_elmt) : elmt(n_elmt), next(nullptr) {}
 
 	~Node() {
 		delete(next);
 	}
 
-	Param get_elmt() {
-		return(elmt);
+	Param* get_elmt() {
+		return(&elmt);
 	}
 
 	Node* get_next() {

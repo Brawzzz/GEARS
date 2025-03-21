@@ -5,8 +5,8 @@ Shaft::Shaft() {
 
 	rotation = 0;
 	angular_speed = 0.f;
-	driven_wheel = new Wheel();
-	driving_wheel = new Wheel();
+	driven_wheel = nullptr;
+	driving_wheel = nullptr;
 }
 
 Shaft::Shaft(PWheel n_driven_wheel, PWheel n_driving_wheel) {
@@ -63,7 +63,7 @@ void Shaft::set_driving_wheel(PWheel n_driving_wheel) {
 std::ostream& operator<<(std::ostream& os, const Shaft& s) {
 
 
-	os << "********************" << std::endl;
+	os << std::endl << "********************" << std::endl;
 
 	os << "rotation = " << s.rotation << std::endl;
 	os << "angular_speed = " << s.angular_speed << "_tr/min" << std::endl;

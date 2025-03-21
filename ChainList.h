@@ -5,9 +5,9 @@ template <class Param>
 
 class ChainList {
 
-private :
+using PNode = Node<Param>*;
 
-	using PNode = Node<Param>*;
+private :
 
 	PNode head;
 
@@ -17,17 +17,7 @@ public :
 		head = nullptr;
 	}
 
-	~ChainList() {
-
-		PNode current = head;
-
-		while (current) {
-			PNode node_i = current;
-
-			current = current->get_next();
-			delete(node_i);
-		}
-	}
+	~ChainList() {}
 
 	PNode get_head() {
 		return head;
@@ -75,7 +65,7 @@ public :
 		std::cout << "NULL" << std::endl;
 	}
 
-	void add_chain(Param p, int index) {
+	void add_chain(const Param& p, int index) {
 
 		PNode new_node = new Node<Param>(p);
 
@@ -110,24 +100,21 @@ public :
 		}
 	}
 
-	Param pop_chain(int index) {
+	Param* pop_chain(int index) {
 
-		Param p = (*new Param());
+		Param* p;
 
 		if (head == nullptr || index > get_len()) {
-			return(p);
+			p = NULL;
 		}
 
 		PNode current = head;
-		PNode temp_node = nullptr;
+		PNode temp_node = head;
 		 
 		if (index == 0) {
 
 			head = current->get_next();
 			p = current->get_elmt();
-			delete(current);
-
-			return(p);
 		}
 		else {
 
@@ -139,8 +126,8 @@ public :
 
 			p = temp_node->get_elmt();
 			delete(temp_node);
-
-			return(p);
 		}
+
+		return(p);
 	}
 };

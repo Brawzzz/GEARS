@@ -58,22 +58,35 @@ void Transmission::set_output_speed(float n_output_speed) {
 //---------- METHODS ----------//
 void Transmission::print_transmission() {
 
+	std::cout << std::endl;
+	std::cout << "********************" << std::endl;
 	std::cout << "Rotation : " << rotation << std::endl;
 	std::cout << "Nb shaft : " << nb_shaft << std::endl;
 	std::cout << "Input speed : " << input_speed << std::endl;
 	std::cout << "Output speed : " << output_speed << std::endl;
+	std::cout << "********************" << std::endl;
+	std::cout << std::endl;
+
+	std::cout << "//========== SHAFT LIST ==========//" << std::endl;
+	shaft_list.print_chain_list();
+	std::cout << "//============= END =============//" << std::endl;
+
 }
 
 void Transmission::add_shaft(Shaft* n_shaft) {
 
 	int len = get_nb_shaft();
-	shaft_list.add_chain((*n_shaft), len - 1);
+
+	shaft_list.add_chain((*n_shaft), len);
+	nb_shaft += 1;
 
 	return;
 }
 
-void Transmission::pop_shaft(int index) {
-	Shaft s = shaft_list.pop_chain(index);
+Shaft* Transmission::pop_shaft(int index) {
+
+	Shaft* s = shaft_list.pop_chain(index);
+	return s;
 }
 
 /*********************
@@ -122,13 +135,31 @@ Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed
 			t.set_rotation(n_rotation);
 			t.set_nb_shaft(n_nb_shaft);
 			t.set_input_speed(n_input_speed);
-			t.set_input_speed(n_output_speed);
+			t.set_output_speed(n_output_speed);
 
-			//t.shaft_list =;
+			for (int i = 0 ; i < n_nb_shaft ; i++){
 
+				Shaft* s = new Shaft();
+
+				PWheel n_driven_wheel = new Wheel();
+				PWheel n_driving_wheel = new Wheel();
+
+				//n_driven_wheel->set_z(0);
+				//n_driven_wheel->set_d(0);
+				//n_driven_wheel->set_m(0);
+
+				//n_driving_wheel->set_z(0);
+				//n_driving_wheel->set_d(0);
+				//n_driving_wheel->set_m(0);
+
+				s->set_driven_wheel(n_driven_wheel);
+				s->set_driving_wheel(n_driving_wheel);
+				
+				(t.shaft_list).add_chain((*s), i);
+			}
+			
 			return(t);
 		}
-		
 	}
 }
 
