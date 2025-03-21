@@ -30,7 +30,7 @@ public:
 
 	//----- CONSTRUCTOR -----//
 	Shaft();
-	Shaft(PWheel n_driven_wheel, PWheel n_driving_wheel);
+	Shaft(PWheel n_driven_wheel, PWheel n_driving_wheel, int n_rotation, float n_angular_speed);
 
 	//----- DESTRUCTOR -----//
 	~Shaft();

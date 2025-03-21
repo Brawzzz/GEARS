@@ -2,8 +2,8 @@
 
 int main(int argc, char* argv) {
 
-	int n_nb_shaft = 5;
-	int n_rotation = 1;
+	int n_nb_shaft = 4;
+	int n_rotation = -1;
 
 	float n_input_speed = 20.f;
 	float n_output_speed = 10.f;

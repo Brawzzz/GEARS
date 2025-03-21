@@ -9,13 +9,13 @@ Shaft::Shaft() {
 	driving_wheel = nullptr;
 }
 
-Shaft::Shaft(PWheel n_driven_wheel, PWheel n_driving_wheel) {
+Shaft::Shaft(PWheel n_driven_wheel, PWheel n_driving_wheel, int n_rotation, float n_angular_speed) {
 
 	driven_wheel = n_driven_wheel;
 	driving_wheel = n_driving_wheel;
 
-	rotation = 0;
-	angular_speed = 0.f;
+	rotation = n_rotation;
+	angular_speed = n_angular_speed;
 }
 
 //----- DESTRUCTOR -----//

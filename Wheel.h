@@ -11,6 +11,8 @@
 
 #include <iostream>
 
+#include "Utilities.h"
+
 class Wheel{
 
 private:

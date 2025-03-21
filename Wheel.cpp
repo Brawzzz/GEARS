@@ -13,17 +13,17 @@ Wheel::Wheel(int n_z, float n_m) {
 	z = n_z;
 	m = n_m;
 
-	d = z * m;
+	d = opti_round(z * m);
 }
 
 Wheel::Wheel(float n_m, int n_d) {
 
 	d = n_d;
 	m = n_m;
-	z = -1;
+	z = 0;
 
 	if (m != 0) {
-		z = d / m;
+		z = opti_round(d / m);
 	}
 	else {
 		std::cout << "========================================" << std::endl;
