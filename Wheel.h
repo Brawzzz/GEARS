@@ -10,6 +10,7 @@
 ***********************/
 
 #include <iostream>
+#include <array>
 
 #include "Utilities.h"
 
@@ -21,8 +22,12 @@ private:
 	int d;
 
 	float m;
+	float e;
 
 public:
+
+	static const std::array<float, 14> MODULES;
+	static const float WHEEL_DENSITY;
 
 	//----- CONSTRUCTOR -----//
 	Wheel();
@@ -37,11 +42,13 @@ public:
 	int	get_d();
 
 	float get_m();
+	float get_e();
 
 	//----- SETER -----//
 	void set_z(int n_z);
 	void set_d(int n_d);
 	void set_m(float n_m);
+	void set_e(float n_e);
 
 	//----- METHODS -----//
 	

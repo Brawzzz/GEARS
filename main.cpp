@@ -3,7 +3,9 @@
 int main(int argc, char* argv) {
 
 	int n_nb_shaft = 4;
-	int n_rotation = -1;
+	int n_rotation = -(int)pow((-1.0), n_nb_shaft);
+
+	std::cout << n_rotation << std::endl;
 
 	float n_input_speed = 20.f;
 	float n_output_speed = 10.f;
