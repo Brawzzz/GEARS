@@ -1,8 +1,9 @@
+#define _USE_MATH_DEFINES
+
 #include "Wheel.h"
 
 //------------ CONSTANTS ------------//
 const std::array<float, 14> Wheel::MODULES = { 0.13, 0.5, 0.6, 0.8, 1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 6, 8 };
-const float WHEEL_DENSITY = 7100;
 
 //----- CONSTRUCTOR -----//
 Wheel::Wheel() {
@@ -11,7 +12,7 @@ Wheel::Wheel() {
 	d = 0;
 
 	m = 0.f;
-	e = 0.f
+	e = 0.f;
 }
 
 Wheel::Wheel(int n_z, float n_m) {
@@ -84,7 +85,12 @@ void Wheel::set_e(float n_e) {
 }
 
 //----- METHODS -----//
+float Wheel::compute_wheel_volume() {
 
+	float volume = M_PI * ((float)(d * d))/(float)4.0 * e;
+
+	return(volume);
+}
 
 //----- SURCHARGE -----//
 std::ostream& operator<<(std::ostream& os, const Wheel& w) {

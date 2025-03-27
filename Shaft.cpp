@@ -63,7 +63,7 @@ void Shaft::set_driving_wheel(PWheel n_driving_wheel) {
 std::ostream& operator<<(std::ostream& os, const Shaft& s) {
 
 
-	os << std::endl << "********************" << std::endl;
+	os << std::endl << std::endl << "********************" << std::endl;
 
 	os << "rotation = " << s.rotation << std::endl;
 	os << "angular_speed = " << s.angular_speed << "_tr/min" << std::endl;

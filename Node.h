@@ -37,7 +37,7 @@ public:
 	}
 
 	void print_node() {
-		std::cout << elmt << " -> ";
+		std::cout << elmt << " ---> ";
 	}
 
 };

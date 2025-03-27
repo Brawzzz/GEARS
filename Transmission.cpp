@@ -1,6 +1,6 @@
 #pragma once
 
-#include <iostream>
+#define _USE_MATH_DEFINES
 
 #include "Transmission.h"
 
@@ -17,7 +17,7 @@ Transmission::Transmission() {
 //---------- DESTRUCTOR ----------//
 Transmission::~Transmission() {}
 
-//---------- GETER ----------//
+//---------- GET ----------//
 int Transmission::get_rotation() {
 	return rotation;
 }
@@ -38,7 +38,7 @@ ChainList<Shaft> Transmission::get_shaft_list() {
 	return(shaft_list);
 }
 
-//---------- SETER ----------//
+//---------- SET ----------//
 void Transmission::set_rotation(int n_rotation) {
 	rotation = n_rotation;
 }
@@ -69,7 +69,9 @@ void Transmission::print_transmission() {
 
 	std::cout << "//========== SHAFT LIST ==========//" << std::endl;
 	shaft_list.print_chain_list();
+	std::cout << std::endl;
 	std::cout << "//============= END =============//" << std::endl;
+	std::cout << std::endl;
 
 }
 
@@ -87,6 +89,39 @@ Shaft* Transmission::pop_shaft(int index) {
 
 	Shaft* s = shaft_list.pop_chain(index);
 	return s;
+}
+
+float Transmission::compute_transmission_mass() {
+
+	float transmission_mass = 0.f;
+
+	if (shaft_list.get_head() == NULL) {
+		transmission_mass = 0.f;
+	}
+	else{
+
+		PWheel driven_wheel = NULL;
+		PWheel driving_wheel = NULL;
+		
+		int d_driven_wheel = 0;
+		int d_driving_wheel = 0;
+
+		for (int i = 0 ; i < nb_shaft ; i++){
+			
+			driven_wheel = (*shaft_list.get_node_i(i)).get_driven_wheel();
+			driving_wheel = (*shaft_list.get_node_i(i)).get_driving_wheel();
+
+			d_driven_wheel = driven_wheel->get_d();
+			d_driving_wheel = driving_wheel->get_d();
+
+			transmission_mass += (d_driven_wheel) * d_driven_wheel + (d_driving_wheel * d_driving_wheel);
+		}
+
+		transmission_mass /= (float)(4.0);
+		transmission_mass *= Wheel::WHEEL_DENSITY_G_MM3 * Wheel::E * M_PI;
+	}
+
+	return transmission_mass;
 }
 
 /******************************************
@@ -128,31 +163,23 @@ Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed
 		}
 		else {
 
-			int min_nb_z = 18;
-			int max_nb_z = 150;
-
 			int driving_z = 0;
 			int driven_z = 0;
 
 			int input_shaft_rotation = 1;
 			int shaft_i_rotation = input_shaft_rotation;
 
-			float m = Wheel::MODULES[7];
+			float m = Wheel::MODULES[5];
 
 			float speed_ratio = n_output_speed / n_input_speed;
-			float n_ratio = powf(speed_ratio, (1.0 / n_nb_shaft));
+			float n_ratio = powf(speed_ratio, (float)(1.0 / n_nb_shaft));
 			float n_ratio_computed = 0.f;
 
 			float shaft_i_speed = n_input_speed;
 
 			//========= Optimal number of theeth research ==========//
-			best_pair(&driving_z, &driven_z, min_nb_z, max_nb_z, n_ratio);
+			best_pair(&driving_z, &driven_z, Wheel::Z_MIN, Wheel::Z_MAX, n_ratio);
 			n_ratio_computed = (float)driving_z / driven_z;
-
-			std::cout << "speed_ratio = " << speed_ratio << std::endl;
-			std::cout << "n_ratio = " << n_ratio << std::endl;
-			std::cout << "n_ratio_computed = " << n_ratio_computed << std::endl;
-			std::cout << "driving_z = " << driving_z << std::endl << "driven_z = " << driven_z << std::endl;
 
 			t.set_rotation(n_rotation);
 			t.set_nb_shaft(n_nb_shaft);
@@ -168,7 +195,7 @@ Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed
 			(t.shaft_list).add_chain((*input_shaft), 0);
 
 			//========== INSERTION ==========//
-			for (int i = 1 ; i < t.nb_shaft ; i++){
+			for (int i = 1 ; i < t.nb_shaft-1 ; i++){
 
 				shaft_i_rotation *= -1;
 				shaft_i_speed *= n_ratio_computed;
@@ -181,14 +208,30 @@ Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed
 				(t.shaft_list).add_chain((*shaft_i), i);
 			}
 
+			//========== CORRECTION ERREUR ==========//
+			speed_ratio = n_output_speed / shaft_i_speed;
+			shaft_i_rotation *= -1;
+
+			best_pair(&driving_z, &driven_z, Wheel::Z_MIN, Wheel::Z_MAX, speed_ratio);
+			n_ratio_computed = (float)driving_z / driven_z;
+
+			shaft_i_speed *= n_ratio_computed;
+
+			PWheel output_shaft_driven_wheel = new Wheel(driving_z, m);
+			PWheel output_shaft_driving_wheel = new Wheel();
+
+			Shaft* output_shaft = new Shaft(output_shaft_driven_wheel, output_shaft_driving_wheel, shaft_i_rotation, shaft_i_speed);
+
+			(t.shaft_list).add_chain((*output_shaft), t.nb_shaft - 1);
+
 			return(t);
 		}
 	}
 }
 
-Transmission Transmission::create_gear_train(float n_input_speed, float n_output_speed, int n_rotation) {
+Transmission Transmission::create_gear_train(float n_input_speed, float n_output_speed, int n_rotation, int* nb_shaft_computed, float* min_mass_computed) {
 
-	Transmission t = Transmission();
+	Transmission t;
 
 	if (n_input_speed == 0.f) {
 
@@ -202,24 +245,53 @@ Transmission Transmission::create_gear_train(float n_input_speed, float n_output
 	}
 	else {
 
-		int min_nb_z = 18;
-		int max_nb_z = 150;
-
 		int driving_z = 0;
 		int driven_z = 0;
 
 		int input_shaft_rotation = 1;
 		int shaft_i_rotation = n_rotation * input_shaft_rotation;
 
+		int nb_shaft_opti = 0;
+
 		float m = Wheel::MODULES[7];
 
 		float speed_ratio = n_output_speed / n_input_speed;
-
 		float shaft_i_speed = n_input_speed;
 
-		t.set_rotation(n_rotation);
-		t.set_input_speed(n_input_speed);
-		t.set_output_speed(n_output_speed);
+		float min_mass = std::numeric_limits<float>::max();
+		float transmission_i_mass = 0.f;
+
+		if (n_rotation == -1) {
+
+			for (int i = Shaft::NB_SHAFT_MIN ; i < Shaft::NB_SHAFT_MAX ; i += 2) {
+
+				t = create_gear_train(i, n_input_speed, n_output_speed, n_rotation);
+				transmission_i_mass = t.compute_transmission_mass();
+
+				if (transmission_i_mass < min_mass){
+					
+					min_mass = transmission_i_mass;
+					nb_shaft_opti = i;
+				}
+			}
+		}
+		else if (n_rotation == 1) {
+
+			for (int i = Shaft::NB_SHAFT_MIN + 1 ; i < Shaft::NB_SHAFT_MAX ; i += 2) {
+
+				t = create_gear_train(i, n_input_speed, n_output_speed, n_rotation);
+				transmission_i_mass = t.compute_transmission_mass();
+
+				if (transmission_i_mass < min_mass) {
+
+					min_mass = transmission_i_mass;
+					nb_shaft_opti = i;
+				}
+			}
+		}
+
+		*nb_shaft_computed = nb_shaft_opti;
+		*min_mass_computed = min_mass;
 
 		return(t);
 	}

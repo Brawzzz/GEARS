@@ -27,7 +27,12 @@ private:
 public:
 
 	static const std::array<float, 14> MODULES;
-	static const float WHEEL_DENSITY;
+
+	static const int Z_MIN = 18;
+	static const int Z_MAX = 150;
+	static const int E = 5;
+
+	static constexpr float WHEEL_DENSITY_G_MM3 = 0.00765f;
 
 	//----- CONSTRUCTOR -----//
 	Wheel();
@@ -51,7 +56,8 @@ public:
 	void set_e(float n_e);
 
 	//----- METHODS -----//
-	
+	float compute_wheel_volume();
+
 	//----- SURCHARGE -----//
 	friend std::ostream& operator<<(std::ostream& os, const Wheel& w);
 

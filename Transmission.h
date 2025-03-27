@@ -35,8 +35,7 @@ public:
 	//----- DESTRUCTOR -----//
 	~Transmission();
 
-	//------- GETER -------//
-	
+	//------- GET -------//
 	int get_rotation();
 	int get_nb_shaft();
 	
@@ -45,7 +44,7 @@ public:
 
 	ChainList<Shaft> get_shaft_list();
 
-	//------- SETER -------//
+	//------- SET -------//
 	void set_rotation(int n_rotation);
 	void set_nb_shaft(int n_tree_number);
 	void set_input_speed(float n_input_speed);
@@ -53,12 +52,14 @@ public:
 
 	//----- METHODS ------//
 	void print_transmission();
-	void add_shaft(Shaft* n_shaft);
 
+	void add_shaft(Shaft* n_shaft);
 	Shaft* pop_shaft(int index);
 
+	float compute_transmission_mass();
+
 	static Transmission create_gear_train(int nb_shaft, float input_speed, float output_speed, int rotation);
-	static Transmission create_gear_train(float input_speed, float output_speed, int rotation);
+	static Transmission create_gear_train(float n_input_speed, float n_output_speed, int n_rotation, int* nb_shaft_computed, float* min_mass_computed);
 
 };
 

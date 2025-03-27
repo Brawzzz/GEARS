@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Node.h"
 
 template <class Param> 
@@ -23,15 +24,15 @@ public :
 		return head;
 	}
 
-	Param get_node_i(int index) {
+	Param* get_node_i(int index) {
 
 		PNode current = head;
 
-		for (int i = 0; i < index; i++) {
+		for (int i = 0 ; i < index ; i++) {
 			current = current->get_next();
 		}
 
-		return current->get_elmt();
+		return(current->get_elmt());
 	}
 
 	int get_len() {

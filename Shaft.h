@@ -28,6 +28,9 @@ private:
 
 public:
 
+	static const int NB_SHAFT_MIN = 2;
+	static const int NB_SHAFT_MAX = 20;
+
 	//----- CONSTRUCTOR -----//
 	Shaft();
 	Shaft(PWheel n_driven_wheel, PWheel n_driving_wheel, int n_rotation, float n_angular_speed);
@@ -35,7 +38,7 @@ public:
 	//----- DESTRUCTOR -----//
 	~Shaft();
 
-	//----- GETER -----//
+	//----- GET -----//
 	int	get_rotation();
 
 	float get_angular_speed();
@@ -43,7 +46,7 @@ public:
 	PWheel get_driven_wheel();
 	PWheel get_driving_wheel();
 
-	//----- SETER -----//
+	//----- SET -----//
 	void set_rotation(int n_rotation);
 	void set_angular_speed(float n_angular_speed);
 	void set_driven_wheel(PWheel n_driven_wheel);
