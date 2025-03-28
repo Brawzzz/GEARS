@@ -1,7 +1,12 @@
 #pragma once
+#ifndef UTILITIES_H
+#define UTILITIES_H
+#endif 
 
+#include <iostream>
+#include <array>
 #include <cmath>
-#include<limits>
+#include <limits>
 
 int opti_round(float a);
 

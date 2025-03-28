@@ -1,4 +1,8 @@
 #pragma once
+#ifndef SHAFT_H
+#define SHAFT_H
+#endif
+
 
 /***********************
 
@@ -53,8 +57,6 @@ public:
 	void set_driving_wheel(PWheel n_driving_wheel);
 
 	//----- METHODS -----//
-
-	//----- SURCHARGE -----//
 	friend std::ostream& operator<<(std::ostream& os, const Shaft& s);
 
 };

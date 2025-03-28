@@ -25,7 +25,7 @@ Shaft::~Shaft() {
 	delete(driving_wheel);
 }
 
-//----- GETER -----//
+//----- GET -----//
 int Shaft::get_rotation() {
 	return rotation;
 }
@@ -42,7 +42,7 @@ PWheel Shaft::get_driving_wheel() {
 	return driving_wheel;
 }
 
-//----- SETER -----//
+//----- SET -----//
 void Shaft::set_rotation(int n_rotation) {
 	rotation = n_rotation;
 }

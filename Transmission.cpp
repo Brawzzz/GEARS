@@ -118,22 +118,11 @@ float Transmission::compute_transmission_mass() {
 		}
 
 		transmission_mass /= (float)(4.0);
-		transmission_mass *= Wheel::WHEEL_DENSITY_G_MM3 * Wheel::E * M_PI;
+		transmission_mass *= Wheel::WHEEL_DENSITY_G_MM3 * Wheel::E * (float)M_PI;
 	}
 
 	return transmission_mass;
 }
-
-/******************************************
-
-create a transmission knowing the inputs :
-
-	- number of shaft
-	- inputs speed
-	- output speed
-	- the rotation direction of the train
-
-******************************************/
 
 Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed, float n_output_speed, int n_rotation) {
 
@@ -177,7 +166,7 @@ Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed
 
 			float shaft_i_speed = n_input_speed;
 
-			//========= Optimal number of theeth research ==========//
+			//---------- Optimal number of theeth research ----------//
 			best_pair(&driving_z, &driven_z, Wheel::Z_MIN, Wheel::Z_MAX, n_ratio);
 			n_ratio_computed = (float)driving_z / driven_z;
 
@@ -186,7 +175,7 @@ Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed
 			t.set_input_speed(n_input_speed);
 			t.set_output_speed(n_output_speed);
 
-			//========== INITIALISATION ==========//
+			//---------- INITIALISATION ----------//
 			PWheel input_shaft_driven_wheel = new Wheel();
 			PWheel input_shaft_driving_wheel = new Wheel(driving_z, m);
 
@@ -194,7 +183,7 @@ Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed
 
 			(t.shaft_list).add_chain((*input_shaft), 0);
 
-			//========== INSERTION ==========//
+			//---------- INSERTION ----------//
 			for (int i = 1 ; i < t.nb_shaft-1 ; i++){
 
 				shaft_i_rotation *= -1;
@@ -208,7 +197,7 @@ Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed
 				(t.shaft_list).add_chain((*shaft_i), i);
 			}
 
-			//========== CORRECTION ERREUR ==========//
+			//---------- ERROR CORRECTION ----------//
 			speed_ratio = n_output_speed / shaft_i_speed;
 			shaft_i_rotation *= -1;
 

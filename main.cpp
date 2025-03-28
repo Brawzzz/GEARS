@@ -2,7 +2,17 @@
 
 int main(int argc, char* argv) {
 
-	//-------------- INSTANCIATE A TRANSMISSION KNOWING THE NUMBER OF SHAFT --------------//
+	/******************************************
+
+		create a transmission knowing :
+
+		- number of shaft
+		- inputs speed
+		- output speed
+		- the rotation direction of the train
+
+	******************************************/
+
 	std::cout << "//------------------------------------------------------------------------------------//" << std::endl;
 	std::cout << "//-------------- INSTANCIATE A TRANSMISSION KNOWING THE NUMBER OF SHAFT --------------//" << std::endl;
 	std::cout << "//------------------------------------------------------------------------------------//" << std::endl;
@@ -17,7 +27,20 @@ int main(int argc, char* argv) {
 
 	t1.print_transmission();
 
-	//-------------- INSTANCIATE A TRANSMISSION WHITHOUT KNOWING THE NUMBER OF SHAFT --------------//
+	//-------------------------------------------------------------------------------------------------------------------------------//
+
+	/******************************************
+
+		create a transmission knowing :
+
+		- inputs speed
+		- output speed
+		- the rotation direction of the train
+
+		Which minimze the train's mass
+
+	******************************************/
+
 	std::cout << "//---------------------------------------------------------------------------------------------//" << std::endl;
 	std::cout << "//-------------- INSTANCIATE A TRANSMISSION WHITHOUT KNOWING THE NUMBER OF SHAFT --------------//" << std::endl;
 	std::cout << "//---------------------------------------------------------------------------------------------//" << std::endl;
@@ -33,7 +56,7 @@ int main(int argc, char* argv) {
 
 	Transmission t2 = Transmission::create_gear_train(n_input_speed, n_output_speed, n_rotation, &nb_shaft_computed, &min_mass_computed);
 
-	// t2.print_transmission();
+	t2.print_transmission();
 
 	std::cout << "mass of t2 = " << min_mass_computed << "_g" << std::endl;
 
