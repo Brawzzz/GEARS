@@ -1,7 +1,6 @@
 #pragma once
 #ifndef TRANSMISSION_H
 #define TRANSMISSION_H
-#endif 
 
 /***********************
 
@@ -17,6 +16,8 @@ shaft_list : list of all the shafts in a transmission
 
 #include "Shaft.h"
 #include "ChainList.h"
+
+using PShaft = Shaft*;
 
 class Transmission {
 
@@ -56,13 +57,13 @@ public:
 	//----- METHODS ------//
 	void print_transmission();
 
-	void add_shaft(Shaft* n_shaft);
-	Shaft* pop_shaft(int index);
+	void add_shaft(PShaft n_shaft);
+	PShaft pop_shaft(int index);
 
 	float compute_transmission_mass();
 
 	static Transmission create_gear_train(int nb_shaft, float input_speed, float output_speed, int rotation);
 	static Transmission create_gear_train(float n_input_speed, float n_output_speed, int n_rotation, int* nb_shaft_computed, float* min_mass_computed);
-
 };
 
+#endif 

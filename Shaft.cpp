@@ -60,25 +60,36 @@ void Shaft::set_driving_wheel(PWheel n_driving_wheel) {
 }
 
 //----- METHODS -----//
-std::ostream& operator<<(std::ostream& os, const Shaft& s) {
+ostream& operator<<(ostream& os, const Shaft& s) {
 
+	os << endl << endl << "********************" << endl;
 
-	os << std::endl << std::endl << "********************" << std::endl;
+	os << "rotation = " << s.rotation << endl;
+	os << "angular_speed = " << s.angular_speed << "_tr/min" << endl;
+	os << endl;
 
-	os << "rotation = " << s.rotation << std::endl;
-	os << "angular_speed = " << s.angular_speed << "_tr/min" << std::endl;
-	os << std::endl;
+	os << "********************" << endl;
 
-	os << "********************" << std::endl;
-	os << "driven_wheel = " << std::endl;
-	os << *(s.driven_wheel);
-	os << "********************" << std::endl;
+	if (s.driven_wheel && s.driving_wheel) {
+		os << "driven_wheel : " << endl;
+		if (auto* helical_wheel = dynamic_cast<PHelicalWheel>(s.driven_wheel)) {
+			os << *helical_wheel;
+		}
+		else {
+			os << *(s.driven_wheel);
+		}
+		os << "********************" << endl;
 
-	os << "driving_wheel = " << std::endl;
-	os << *(s.driving_wheel);
-	os << "********************" << std::endl;
-
-	os << std::endl;
+		os << "driving_wheel : " << endl;
+		if (auto* helical_wheel = dynamic_cast<PHelicalWheel>(s.driving_wheel)) {
+			os << *helical_wheel;
+		}
+		else {
+			os << *(s.driving_wheel);
+		}
+		os << "********************" << endl;
+	}
+	os << endl;
 
 	return os;
 }

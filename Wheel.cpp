@@ -1,8 +1,6 @@
-#define _USE_MATH_DEFINES
-
 #include "Wheel.h"
 
-//----- CONSTRUCTOR -----//
+//----- CONSTRUCTORS -----//
 Wheel::Wheel() {
 
 	z = 0;
@@ -32,10 +30,10 @@ Wheel::Wheel(float n_m, int n_d) {
 		z = opti_round(d / m);
 	}
 	else {
-		std::cout << "========================================" << std::endl;
-		std::cout << "*** Wheel(int n_d, float n_m)***" << std::endl;
-		std::cout << "Z COMPUTATION IMPOSSIBLE (M = 0)" << std::endl;
-		std::cout << "========================================" << std::endl;
+		cout << "========================================" << endl;
+		cout << "*** Wheel(int n_d, float n_m)***" << endl;
+		cout << "Z COMPUTATION IMPOSSIBLE (M = 0)" << endl;
+		cout << "========================================" << endl;
 	}
 }
 
@@ -82,18 +80,11 @@ void Wheel::set_e(float n_e) {
 }
 
 //----- METHODS -----//
-float Wheel::compute_wheel_volume() {
+ostream& operator<<(ostream& os, const Wheel& w) {
 
-	float volume = (float)M_PI * ((float)(d * d)) / 4 * e;
-
-	return(volume);
-}
-
-std::ostream& operator<<(std::ostream& os, const Wheel& w) {
-
-	os << "z = " << w.z << std::endl;
-	os << "d = " << w.d << "_mm" << std::endl;
-	os << "m = " << w.m << "_mm" << std::endl;
+	os << "z = " << w.z << endl;
+	os << "d = " << w.d << "_mm" << endl;
+	os << "m = " << w.m << "_mm" << endl;
 
 	return os;
 }

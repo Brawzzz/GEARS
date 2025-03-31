@@ -1,7 +1,6 @@
 #pragma once
 #ifndef WHEEL_H
 #define WHEEL_H
-#endif
 
 /************************************
 
@@ -16,7 +15,7 @@
 
 class Wheel{
 
-private:
+protected:
 
 	int z;
 	int d;
@@ -26,7 +25,8 @@ private:
 
 public:
 
-	static constexpr std::array<float, 14> MODULES = { 0.13f, 0.5f, 0.6f, 0.8f, 1.f, 1.25f, 1.5f, 2.f, 2.5f, 3.f, 4.f, 5.f, 6.f, 8.f };
+	//----- CLASS CONSTANTS -----//
+	static constexpr array<float, 14> MODULES = { 0.13f, 0.5f, 0.6f, 0.8f, 1.f, 1.25f, 1.5f, 2.f, 2.5f, 3.f, 4.f, 5.f, 6.f, 8.f };
 
 	static const int Z_MIN = 18;
 	static const int Z_MAX = 150;
@@ -56,34 +56,9 @@ public:
 	void set_e(float n_e);
 
 	//----- METHODS -----//
-	float compute_wheel_volume();
+	virtual float compute_wheel_volume() = 0;
 
-	friend std::ostream& operator<<(std::ostream& os, const Wheel& w);
-
+	friend ostream& operator<<(ostream& os, const Wheel& w);
 };
 
-class HelicalWheel : public Wheel{
-
-private:
-
-	float angle;
-
-public:
-
-	HelicalWheel();
-	HelicalWheel(float n_angle);
-
-	~HelicalWheel();
-
-	float get_angle();
-
-	void set_angle(float n_angle);
-};
-
-class StraightWheel : public Wheel{
-
-public:
-
-	StraightWheel();
-	~StraightWheel();
-};
+#endif

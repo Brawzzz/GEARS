@@ -40,5 +40,4 @@ public:
 	void print_node() {
 		std::cout << elmt << " ---> ";
 	}
-
 };

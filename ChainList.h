@@ -63,7 +63,7 @@ public :
 			current->print_node();
 			current = current->get_next();
 		}
-		std::cout << "NULL" << std::endl;
+		cout << "NULL" << endl;
 	}
 
 	void add_chain(const Param& p, int index) {
@@ -75,7 +75,7 @@ public :
 		if (index > len) {
 
 			delete(new_node);
-			std::cout << "***** list.len < index *****" << std::endl;
+			cout << "***** list.len < index *****" << endl;
 
 			return;
 		}

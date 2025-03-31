@@ -1,5 +1,3 @@
-#pragma once
-
 #define _USE_MATH_DEFINES
 
 #include "Transmission.h"
@@ -58,24 +56,24 @@ void Transmission::set_output_speed(float n_output_speed) {
 //---------- METHODS ----------//
 void Transmission::print_transmission() {
 
-	std::cout << std::endl;
-	std::cout << "********************" << std::endl;
-	std::cout << "Rotation : " << rotation << std::endl;
-	std::cout << "Nb shaft : " << nb_shaft << std::endl;
-	std::cout << "Input speed : " << input_speed << std::endl;
-	std::cout << "Output speed : " << output_speed << std::endl;
-	std::cout << "********************" << std::endl;
-	std::cout << std::endl;
+	cout << endl;
+	cout << "********************" << endl;
+	cout << "Rotation : " << rotation << endl;
+	cout << "Nb shaft : " << nb_shaft << endl;
+	cout << "Input speed : " << input_speed << endl;
+	cout << "Output speed : " << output_speed << endl;
+	cout << "********************" << endl;
+	cout << endl;
 
-	std::cout << "//========== SHAFT LIST ==========//" << std::endl;
+	cout << "//========== SHAFT LIST ==========//" << endl;
 	shaft_list.print_chain_list();
-	std::cout << std::endl;
-	std::cout << "//============= END =============//" << std::endl;
-	std::cout << std::endl;
+	cout << endl;
+	cout << "//============= END =============//" << endl;
+	cout << endl;
 
 }
 
-void Transmission::add_shaft(Shaft* n_shaft) {
+void Transmission::add_shaft(PShaft n_shaft) {
 
 	int len = get_nb_shaft();
 
@@ -85,9 +83,9 @@ void Transmission::add_shaft(Shaft* n_shaft) {
 	return;
 }
 
-Shaft* Transmission::pop_shaft(int index) {
+PShaft Transmission::pop_shaft(int index) {
 
-	Shaft* s = shaft_list.pop_chain(index);
+	PShaft s = shaft_list.pop_chain(index);
 	return s;
 }
 
@@ -130,11 +128,11 @@ Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed
 
 	if (n_input_speed == 0.f){
 
-		std::cout << "========================================" << std::endl;
-		std::cout << "***** Null input speed *****" << std::endl;
-		std::cout << "***** IMPOSSIBLE COMPUTAION *****" << std::endl;
-		std::cout << "***** create_gear_train(int nb_shaft, float input_speed, float output_speed, int rotation) *****" << std::endl;
-		std::cout << "========================================" << std::endl;
+		cout << "========================================" << endl;
+		cout << "***** Null input speed *****" << endl;
+		cout << "***** IMPOSSIBLE COMPUTAION *****" << endl;
+		cout << "***** create_gear_train(int nb_shaft, float input_speed, float output_speed, int rotation) *****" << endl;
+		cout << "========================================" << endl;
 
 		return(t);
 	}
@@ -142,11 +140,11 @@ Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed
 
 		if ((n_nb_shaft % 2 == 0) && (n_rotation == 1)) {
 
-			std::cout << "========================================" << std::endl;
-			std::cout << "***** rotation -1 and pair number of shaft *****" << std::endl;
-			std::cout << "***** IMPOSSIBLE COMPUTAION *****" << std::endl;
-			std::cout << "***** create_gear_train(int nb_shaft, float input_speed, float output_speed, int rotation) *****" << std::endl;
-			std::cout << "========================================" << std::endl;
+			cout << "========================================" << endl;
+			cout << "***** rotation -1 and pair number of shaft *****" << endl;
+			cout << "***** IMPOSSIBLE COMPUTAION *****" << endl;
+			cout << "***** create_gear_train(int nb_shaft, float input_speed, float output_speed, int rotation) *****" << endl;
+			cout << "========================================" << endl;
 
 			return(t);
 		}
@@ -176,10 +174,10 @@ Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed
 			t.set_output_speed(n_output_speed);
 
 			//---------- INITIALISATION ----------//
-			PWheel input_shaft_driven_wheel = new Wheel();
-			PWheel input_shaft_driving_wheel = new Wheel(driving_z, m);
+			PStraightWheel input_shaft_driven_wheel = new StraightWheel();
+			PStraightWheel input_shaft_driving_wheel = new StraightWheel(driving_z, m);
 
-			Shaft* input_shaft = new Shaft(input_shaft_driven_wheel, input_shaft_driving_wheel, input_shaft_rotation, n_input_speed);
+			PShaft input_shaft = new Shaft(input_shaft_driven_wheel, input_shaft_driving_wheel, input_shaft_rotation, n_input_speed);
 
 			(t.shaft_list).add_chain((*input_shaft), 0);
 
@@ -189,10 +187,10 @@ Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed
 				shaft_i_rotation *= -1;
 				shaft_i_speed *= n_ratio_computed;
 
-				PWheel driven_wheel = new Wheel(driven_z, m);
-				PWheel driving_wheel = new Wheel(driving_z, m);
+				PStraightWheel driven_wheel = new StraightWheel(driven_z, m);
+				PStraightWheel driving_wheel = new StraightWheel(driving_z, m);
 
-				Shaft* shaft_i = new Shaft(driven_wheel, driving_wheel, shaft_i_rotation, shaft_i_speed);
+				PShaft shaft_i = new Shaft(driven_wheel, driving_wheel, shaft_i_rotation, shaft_i_speed);
 
 				(t.shaft_list).add_chain((*shaft_i), i);
 			}
@@ -206,10 +204,10 @@ Transmission Transmission::create_gear_train(int n_nb_shaft, float n_input_speed
 
 			shaft_i_speed *= n_ratio_computed;
 
-			PWheel output_shaft_driven_wheel = new Wheel(driving_z, m);
-			PWheel output_shaft_driving_wheel = new Wheel();
+			PStraightWheel output_shaft_driven_wheel = new StraightWheel(driving_z, m);
+			PStraightWheel output_shaft_driving_wheel = new StraightWheel();
 
-			Shaft* output_shaft = new Shaft(output_shaft_driven_wheel, output_shaft_driving_wheel, shaft_i_rotation, shaft_i_speed);
+			PShaft output_shaft = new Shaft(output_shaft_driven_wheel, output_shaft_driving_wheel, shaft_i_rotation, shaft_i_speed);
 
 			(t.shaft_list).add_chain((*output_shaft), t.nb_shaft - 1);
 
@@ -224,11 +222,11 @@ Transmission Transmission::create_gear_train(float n_input_speed, float n_output
 
 	if (n_input_speed == 0.f) {
 
-		std::cout << "========================================" << std::endl;
-		std::cout << "***** Null input speed *****" << std::endl;
-		std::cout << "***** IMPOSSIBLE COMPUTAION *****" << std::endl;
-		std::cout << "***** create_gear_train(int nb_shaft, float input_speed, float output_speed, int rotation) *****" << std::endl;
-		std::cout << "========================================" << std::endl;
+		cout << "========================================" << endl;
+		cout << "***** Null input speed *****" << endl;
+		cout << "***** IMPOSSIBLE COMPUTAION *****" << endl;
+		cout << "***** create_gear_train(int nb_shaft, float input_speed, float output_speed, int rotation) *****" << endl;
+		cout << "========================================" << endl;
 
 		return(t);
 	}
@@ -247,7 +245,7 @@ Transmission Transmission::create_gear_train(float n_input_speed, float n_output
 		float speed_ratio = n_output_speed / n_input_speed;
 		float shaft_i_speed = n_input_speed;
 
-		float min_mass = std::numeric_limits<float>::max();
+		float min_mass = numeric_limits<float>::max();
 		float transmission_i_mass = 0.f;
 
 		if (n_rotation == -1) {

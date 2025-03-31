@@ -1,10 +1,8 @@
 #pragma once
 #ifndef SHAFT_H
 #define SHAFT_H
-#endif
 
-
-/***********************
+/*************************************************
 
 (int)		rotation : Direction of shaft rotation
 
@@ -13,11 +11,15 @@
 (Wheel*)	driven_wheel : shaft's driven wheel	
 (Wheel*)	driving_wheel : shaft's driving wheel	
 
-***********************/
+*************************************************/
 
 #include "Wheel.h"
+#include "StraightWheel.h"
+#include "HelicalWheel.h"
 
 using PWheel = Wheel*;
+using PStraightWheel = StraightWheel*;
+using PHelicalWheel = HelicalWheel*;
 
 class Shaft {
 
@@ -57,7 +59,7 @@ public:
 	void set_driving_wheel(PWheel n_driving_wheel);
 
 	//----- METHODS -----//
-	friend std::ostream& operator<<(std::ostream& os, const Shaft& s);
-
+	friend ostream& operator<<(ostream& os, const Shaft& s);
 };
 
+#endif
